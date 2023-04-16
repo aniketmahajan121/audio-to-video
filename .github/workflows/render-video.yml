@@ -20,6 +20,8 @@ jobs:
       - run: sudo apt install ffmpeg
       - run: npm i
       - run: npm run build -- --props="$WORKFLOW_INPUT" --timeout=250000
+        env:
+          WORKFLOW_INPUT: ${{ toJson(github.event.inputs) }}
       - uses: actions/upload-artifact@v2
         with:
           name: video.mp4
