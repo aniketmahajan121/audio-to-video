@@ -1,0 +1,26 @@
+name: Convert Text to video
+on:
+  workflow_dispatch:
+    inputs:
+      outputConfig:
+        description: "https://s3.ap-southeast-1.amazonaws.com/qa-creator.pocketfm.in/audio.mp3"
+        required: true
+        default: '{
+  "audioSrc" : "https://s3.ap-southeast-1.amazonaws.com/qa-creator.pocketfm.in/audio.mp3",
+  "bg": "https://i.pinimg.com/originals/ba/2a/c2/ba2ac2ecee3cdf300608be7ccdd577fa.jpg"
+}'
+jobs:
+  render:
+    name: Render video
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/setup-node@main
+      - run: sudo apt update
+      - run: sudo apt install ffmpeg
+      - run: npm i
+      - run: npm run build -- --props="$WORKFLOW_INPUT"
+      - uses: actions/upload-artifact@v2
+        with:
+          name: video.mp4
+          path: out/video.mp4
