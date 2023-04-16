@@ -2,13 +2,14 @@ name: Convert Text to video
 on:
   workflow_dispatch:
     inputs:
-      outputConfig:
-        description: "https://s3.ap-southeast-1.amazonaws.com/qa-creator.pocketfm.in/audio.mp3"
+      audioSrc:
+        description: "Audio url of file"
         required: true
-        default: '{
-  "audioSrc" : "https://s3.ap-southeast-1.amazonaws.com/qa-creator.pocketfm.in/audio.mp3",
-  "bg": "https://i.pinimg.com/originals/ba/2a/c2/ba2ac2ecee3cdf300608be7ccdd577fa.jpg"
-}'
+        default: "https://s3.ap-southeast-1.amazonaws.com/qa-creator.pocketfm.in/audio.mp3"
+      bg:
+        description: "Bg url of file"
+        required: true
+        default: "https://i.pinimg.com/originals/ba/2a/c2/ba2ac2ecee3cdf300608be7ccdd577fa.jpg"
 jobs:
   render:
     name: Render video
